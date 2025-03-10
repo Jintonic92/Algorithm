@@ -1,35 +1,32 @@
-# stack
 import sys
-n = int(sys.stdin.readline())
-stack = list()
-#n = int(input())
+
+n = int(input())
+#n = 2
+bin = list()
 
 for _ in range(n):
-  word = sys.stdin.readline().split()
+  total = sys.stdin.readline().split()
 
-  if word[0] == 'push':
-    stack.append(word[1])
-    
-  elif word[0] == 'top':
-    if len(stack) == 0:
-      print(-1)
-    else:
-      print(stack[-1])
+  if len(total) >= 2:
+    bin.append(total[1])
+    continue
+  
+  elif total[0] == 'top':
+    if len(bin) == 0:
+      print('-1')
+    else: print(bin[-1])
+  
+  elif total[0] == 'pop':
+    if len(bin) == 0:
+      print('-1')
+    else: print(bin.pop())    
 
-  elif word[0] == 'size':
-    print(len(stack))
-
-  elif word[0] == 'empty':
-    if len(stack) != 0:
-      print(0)
-    else:
+  elif total[0] == 'empty':
+    if len(bin) == 0:
       print(1)
-
-  #else:
-  elif word[0] == 'pop':
-    if len(stack) > 0:
-      #print(stack[-1])
-      #del(stack[-1])
-      print(stack.pop())
     else:
-      print(-1)
+      print(0)
+  
+  elif total[0] == 'size':
+    print(len(bin))
+  
