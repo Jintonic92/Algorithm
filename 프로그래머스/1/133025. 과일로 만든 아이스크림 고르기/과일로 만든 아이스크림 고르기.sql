@@ -1,0 +1,18 @@
+-- 코드를 입력하세요
+SELECT F.FLAVOR
+FROM ICECREAM_INFO I 
+JOIN FIRST_HALF F ON I.FLAVOR = F.FLAVOR
+WHERE F.TOTAL_ORDER > 3000
+AND F.FLAVOR IN ('vanilla', 'peach', 'watermelon', 'mango', 'strawberry', 'melon', 'orange', 'pineapple')
+
+
+# SELECT ROUND(AVG(COALESCE(LENGTH, 10)), 2) AS 
+# CASE WHEN THEN ELSE END AS 
+# DISTINCT
+# FROM 
+# JOIN ON
+# WHERE
+# GROUP BY
+# HAVING
+# ORDER BY
+# LIMIT
