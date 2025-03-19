@@ -1,33 +1,34 @@
-# 1935 : 후위 표기식 2
+# 1935 : 후위표기식2
 
 n = int(input())
 equa = input()
-num_list =[]
-for _ in range(n):
-  num_list.append(int(input()))
-
 stack = []
+for _ in range(n):
+  stack.append(int(input()))
+
 for each in equa:
+  #print("each", each)
   if each.isalpha():
-    num = num_list[ord(each) - 65]
-    stack.append(num)
+    each = stack[ord(each) - 65]
+    stack.append(each)
   
   else:
-    num = stack.pop()
+    a = stack.pop()
     result = stack.pop()
+    #print(a, result)
 
-    if each == "*":
-      result *= num
+    if each == "+":
+      result += a
     
-    elif each == "+":
-      result += num
+    elif each == "*":
+      result *= a
     
     elif each == "/":
-      result /= num
-    
-    elif each == "-":
-      result -= num
+      result /= a
 
+    elif each == "-":
+      result -= a
+    
     stack.append(result)
 
 print("%.2f" %stack[-1])
