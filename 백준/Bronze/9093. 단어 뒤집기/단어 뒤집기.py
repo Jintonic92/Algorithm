@@ -1,18 +1,19 @@
 # 9093 : 단어 뒤집기
-# 단어가 들어오고 2개 이상이면 뒤집어서 출력
-
 n = int(input())
 for _ in range(n):
-  sent = input()
+  sent = input().split()
   stack = []
-  for each in sent.split():
+  for each in sent:
     stack.append(each)
     stack.append(" ")
-
+  
+  result = ""
+  #print(stack)
   for each in stack:
-    if each == " " or len(each) == 1:
-      print(each, end = "")
+    if each == " ":
+      result += ' '
     else:
       for i in range(len(each)-1, -1, -1):
-        print(each[i], end= "")
-
+        #print(each[i])
+        result += each[i]
+  print(result)
