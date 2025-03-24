@@ -1,5 +1,5 @@
 # 1929 : 소수 구하기
-def find_prime(x):
+def is_prime(x):
   if x < 2:
     return False
   else:
@@ -8,7 +8,7 @@ def find_prime(x):
         return False
     return True
 
-a, b = map(int, input().split())
-for x in range(a, b+1):
-  if find_prime(x):
+n, m = map(int, input().split())
+for x in range(n, m+1):
+  if is_prime(x):
     print(x)
