@@ -1,23 +1,12 @@
-number, b = map(int, input().split())
-#print(number, b)
-#number, b = 60466175, 36
-bin = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-#bin[35]
+# 11005 : 진법 전환
 
-#number = ''.join(reversed(number))
-#print(number)
+ord('A')
+n, b = map(int, input().split())
+result = ''
+while n > 0:
+  n, r = divmod(n, b)
+  if r > 9:
+    r = chr(r + 55)
+  result = str(r) + result
 
-result = []
-while number >= b:
-  curr = number % b
-  number //= b
-  #print("curr", curr)
-  #result += str(curr)
-  result.append(bin[curr])
-  #print(bin.index(str(curr)), end="")
-
-result.append(bin[number])
-#print("result", result)
-for x in range(len(result)-1, -1, -1):
-  #print(x, len(result))
-  print(result[x], end="")
+print(result)
