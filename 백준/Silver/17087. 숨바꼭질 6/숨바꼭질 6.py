@@ -1,15 +1,17 @@
-# 17087 : 숨바꼭질6
-from math import gcd
+# 17087 : 숨바꼭질 6
+# 나와의 차이에서 최소공배수
 from functools import reduce
+from math import gcd
 
-n, s = map(int, input().split())
-inp_list = list(map(int, input().split()))
-stack = []
-stack = list(abs(each - s) for each in inp_list)
+s, n = map(int, input().split())
+bin = list(map(int, input().split()))
+arr = []
 
-# 리스트 전체에 대해 GCD 계산
-def gcd_multiple(numbers):
-  return reduce(gcd, numbers)
+for each in bin:
+  arr.append(abs(n - each))
 
+def gcd_multiple(arr):
+  return reduce(gcd, arr)
 
-print(gcd_multiple(stack))
+print(gcd_multiple(arr))
+  
