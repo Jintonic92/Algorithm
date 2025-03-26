@@ -1,14 +1,12 @@
-# number = '1010'
-# b = 2
-number, b = input().split()
-number = number[::-1] # number를 뒤집는다 
-#print(number)
+# 2745 : 진법전환
 
-bin = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ' # 36진법에 해당하는 숫자와 알파벳을 문자열로 만든다 bin
-
+num, b = input().split()
 result = 0
-for idx, num in enumerate(number):
-  #print(idx, num, bin.index(num)*int(b))
-  result +=  int(b) ** idx * bin.index(num) 
+a_list = [x for x in range(10, 36)]
 
+for idx, each in enumerate(num[::-1]):
+  if each.isalpha():
+    result += (ord(each) - 55) * (int(b) ** idx)
+  else:
+    result += int(each) * (int(b) ** idx)
 print(result)
