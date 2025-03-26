@@ -1,14 +1,15 @@
-num = int(input())
+n = int(input())
 result = ''
 
-if num == 0:
+if n == 0:
     print(0)
 
 else:
-    while num != 0:
-        num, r = divmod(num, -2)
-        if r < 0:
+    while n != 0 :
+        n, r = divmod(n, -2)
+        if r < 0 :
             r += 2 # 양수화
-            num += 1 # 1더해주기
+            n += 1 # +1 해주기
         result = str(r) + result
-    print(result)
+
+print(result)
