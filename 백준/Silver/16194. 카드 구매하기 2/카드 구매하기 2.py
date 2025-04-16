@@ -1,12 +1,15 @@
-# 16194 : 카드 구매하기 2
+# 카드 구매하기 2
+# dp 만들고
+# i, j로 돌리면서 최소값으로 구하기
 
 n = int(input())
-arr = list(map(int, input().split()))
-dp = [float('inf') for _ in range(n+1)]
-dp[0] = 0
+inp_list = list(map(int, input().split()))
+dp = [0] + inp_list + [float('inf') for _ in range(n)]
 
-for i in range(1, n+1):
-  for j in range(1, i+1):
-    dp[i] = min(dp[i], dp[i-j] + arr[j-1])
+for i in range(n+1):
+  for j in range(i):
+    #print(f"dp[{i}] = min(dp[{i}], dp[{i-j}] + dp[{j}])")
+    dp[i] = min(dp[i], dp[i-j] + dp[j])
+    #print(dp)
 
 print(dp[n])
