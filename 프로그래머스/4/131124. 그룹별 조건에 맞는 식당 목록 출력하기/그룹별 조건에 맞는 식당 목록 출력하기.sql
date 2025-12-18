@@ -1,19 +1,17 @@
--- 코드를 입력하세요
-
-SELECT MEMBER_NAME, REVIEW_TEXT
+# -- 코드를 입력하세요
+SELECT MEMBER_NAME
+    , REVIEW_TEXT
     , DATE_FORMAT(REVIEW_DATE, '%Y-%m-%d') AS REVIEW_DATE
 FROM REST_REVIEW R
-JOIN MEMBER_PROFILE P ON R.MEMBER_ID = P.MEMBER_ID
-WHERE R.MEMBER_ID IN (
-    SELECT MEMBER_ID
-    FROM REST_REVIEW
-    GROUP BY 1 
-    HAVING COUNT(*) = (
-            SELECT COUNT(*) 
-            FROM REST_REVIEW 
-            GROUP BY MEMBER_ID 
-            ORDER BY 1 
-            DESC LIMIT 1
-    )
-)
+    JOIN MEMBER_PROFILE M ON R.MEMBER_ID = M.MEMBER_ID
+WHERE R.MEMBER_ID IN (SELECT MEMBER_ID 
+                    FROM REST_REVIEW
+                    GROUP BY MEMBER_ID
+                    HAVING COUNT(*) = (SELECT COUNT(*)
+                                        FROM REST_REVIEW
+                                        GROUP BY MEMBER_ID
+                                        ORDER BY COUNT(*) DESC
+                                        LIMIT 1
+                                       )
+                   )
 ORDER BY 3, 2
