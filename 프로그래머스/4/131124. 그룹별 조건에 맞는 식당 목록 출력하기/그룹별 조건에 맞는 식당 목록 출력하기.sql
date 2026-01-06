@@ -1,17 +1,16 @@
-# -- 코드를 입력하세요
+-- 코드를 입력하세요
+WITH FILTER AS(
+    SELECT MEMBER_ID
+        , COUNT(*) AS CNT
+    FROM REST_REVIEW 
+    GROUP BY MEMBER_ID
+    ORDER BY 2 DESC
+    LIMIT 1
+)
 SELECT MEMBER_NAME
     , REVIEW_TEXT
     , DATE_FORMAT(REVIEW_DATE, '%Y-%m-%d') AS REVIEW_DATE
 FROM REST_REVIEW R
-    JOIN MEMBER_PROFILE M ON R.MEMBER_ID = M.MEMBER_ID
-WHERE R.MEMBER_ID IN (SELECT MEMBER_ID 
-                    FROM REST_REVIEW
-                    GROUP BY MEMBER_ID
-                    HAVING COUNT(*) = (SELECT COUNT(*)
-                                        FROM REST_REVIEW
-                                        GROUP BY MEMBER_ID
-                                        ORDER BY COUNT(*) DESC
-                                        LIMIT 1
-                                       )
-                   )
+    LEFT JOIN MEMBER_PROFILE M ON R.MEMBER_ID = M.MEMBER_ID
+WHERE R.MEMBER_ID IN (SELECT DISTINCT MEMBER_ID FROM FILTER)
 ORDER BY 3, 2
