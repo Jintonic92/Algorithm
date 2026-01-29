@@ -1,9 +1,10 @@
-from collections import Counter 
-
 def solution(participant, completion):
-    p_cnt = Counter(participant)
-    c_cnt = Counter(completion)
+    participant.sort()
+    completion.sort() 
     
-    answer = p_cnt - c_cnt
     
-    return list(answer.keys())[0]
+    for i in range(len(completion)):
+        if participant[i] != completion[i]:
+            return participant[i]
+    
+    return participant[-1]
