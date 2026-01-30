@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+
+import sys
+
+def solution():
+
+	t = int(sys.stdin.readline())
+
+	for _ in range(t):
+		
+		x, y, n = list(map(int,sys.stdin.readline().split()))
+	
+		min_dis = abs(x) + abs(y) # 최소 거리
+	
+		if min_dis <= n and (n - min_dis) % 2 == 0 :
+			print("YES")
+		else:
+			print("NO")
+
+solution()
+		
