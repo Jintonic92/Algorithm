@@ -1,3 +1,5 @@
+# https://school.programmers.co.kr/courses/14892/lessons/119544
+
 import heapq
 
 def solution(n, works):
