@@ -1,0 +1,27 @@
+
+import sys
+
+n = int(sys.stdin.readline())
+
+# def factorial(n):
+# 	if n < 2 :
+# 		return 1
+# 	else : 
+# 		return n * factorial(n-1)
+
+
+# num = factorial(n)
+# while num >= 10 :
+# 	num_s = list(map(int, list(str(num).strip())))
+# 	num = sum(num_s)
+
+# print(num)
+
+# n이 작을 때만 직접 계산, 6 이상은 무조건 9
+if n == 0: print(1)
+elif n == 1: print(1)
+elif n == 2: print(2)
+elif n == 3: print(6)
+elif n == 4: print(6)
+elif n == 5: print(3)
+else: print(9)
