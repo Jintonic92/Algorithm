@@ -1,0 +1,45 @@
+import sys 
+
+# 숫자판의 개수 N (자릿수)
+# 각 숫자판의 최대값을 의미하는 A1, AN 
+# 각 숫자판의 초기값을 의미하는 B1, BN
+# 버튼을 누르르 횟수 K (오른쪽 자리 숫자 +1 ), 79 -> 80 (왼쪽 자리 숫자 +1 )
+
+# 2 # 2자리 수 
+# 7, 8 # 78까지 됨
+# 6, 4 # 64부터 시작 
+# 7
+# 64 [시작] 
+# 65 66 67 68 
+# 70 71 72 
+
+# 5 # 5자리수
+# 8, 6, 9, 7, 7 # 86,977까지 됨
+# 1, 4, 5, 2, 3 # 14,523부터 시작
+# 361번 누를 수 있음 
+
+# 각각의 끝자리에서 최대로 하고, 그 다음 자리로 넘김 
+
+n = int(sys.stdin.readline()) # 숫자판의 개수 자리수 
+max_list = list(map(int, sys.stdin.readline().split()))
+min_list = list(map(int, sys.stdin.readline().split()))
+buttons = int(sys.stdin.readline())
+
+
+# 가장 먼저 버튼 수 만큼 더함
+min_list[-1] += buttons
+
+# 오른쪽 끝부터 올림수 처리
+for i in range(n -1 , -1, -1):
+	limit = max_list[i] + 1 # 현재 자리에서 가질 수 있는 최대 수
+
+	if i > 0 : # 맨 왼쪽 수가 아니라면 더해주기
+		carry = min_list[i] // limit
+		min_list[i-1] += carry 
+
+	# 현재 자리는 limit으로 나눈 나머지만 남기기
+	min_list[i] %= limit 
+
+print("".join(map(str, min_list)))
+
+		
