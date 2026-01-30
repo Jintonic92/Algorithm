@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+
+
+# 소금물 7% 먼저 구하고
+# 여기에 M을 더해서 
+# 농도 구한다
+
+import sys 
+import math 
+n, m = list(map(int, sys.stdin.readline().split()))
+
+ori_salt = n * 0.07 
+print(f"{math.floor(((ori_salt)/(n+m)*100)*100)/100:.2f}")
+
+# new = ( n * 7) / (n + m )
+# print(f"{new:.2f}")
