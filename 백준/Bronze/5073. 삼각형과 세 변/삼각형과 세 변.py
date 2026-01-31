@@ -1,27 +1,21 @@
-bin = []
+import sys
+
+
 while True:
-  x, y, z = map(int, input().split())
-  if x == 0 or y == 0 or z == 0:
-    break
-  bin.append([x, y, z])
-
-
-def check(bin):
-  bin.sort()
-  x, y, z = bin
-  #print(x, y, z)
-
-  if x + y <= z:
-    print('Invalid')
-
-  elif x == y == z:
-    print("Equilateral")
-  
-  elif x == y or y == z or x == z :
-    print("Isosceles")
-
-  else:
-    print("Scalene")
-
-for one in bin:
-  check(one)
+    
+    list_all = list(map(int, sys.stdin.readline().split()))
+    
+    if sum(list_all) == 0:
+        sys.exit()
+    
+    if sum(list_all) - max(list_all) <= max(list_all):
+        print("Invalid")
+    else: 
+        if len(set(list_all)) == 1:
+            print("Equilateral")
+    
+        elif len(set(list_all)) == 2:
+            print("Isosceles")
+            
+        else:
+            print("Scalene")
