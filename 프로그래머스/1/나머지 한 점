@@ -1,0 +1,23 @@
+# https://school.programmers.co.kr/courses/14892/lessons/119553
+
+# 각각 왼쪽 오른쪽 담고 
+# 혼자 남은애들만 남기기
+from collections import deque
+
+def solution(v):
+    x_list = []
+    y_list = []
+    
+    for x, y in v :
+        if x in x_list:
+            x_list.remove(x)
+        else: 
+            x_list.append(x)
+        if y in y_list:
+            y_list.remove(y)
+        else:
+            y_list.append(y)
+            
+    answer = [x_list[0], y_list[0]]
+
+    return answer
