@@ -1,16 +1,9 @@
-# height width n m 
+import math
 
-import sys
-import math 
+h, w, n, m = map(int, input().split())
+#h, w, n, m = 5, 4, 1, 1
 
-def solution():
-    h, w, n, m = map(int, sys.stdin.readline().split())
-    
-    row_cnt = math.ceil(h/(n + 1))
-    col_cnt = math.ceil(w/(m + 1))
-    
-    print(row_cnt * col_cnt)
-    
+h_max = math.ceil(h/(n+1))
+w_max = math.ceil(w/(m+1))
 
-solution()
-            
+print(h_max * w_max)
