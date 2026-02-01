@@ -1,27 +1,16 @@
-# https://www.acmicpc.net/problem/4673
+visited = [True] * 10001
 
-visited = [0] * 10001
-
-# for i in range(1, 10000+1):
-for i in range(1, 10000+1):
-  # print("number", i)
-  added = i
-  str_num = str(i)
-  for j in range(len(str_num)):
-    # print(len(str_num), str_num[j])
-    added += int(str_num[j])
-    # print(added)
-
-    # if added == 20:
-    #   print("its 20")
-  if added <= 10000 :
-    visited[added] = 1
-
-for i in range(1, len(visited)):
-  if visited[i] != 1:
-    print(i)
-  
-
+for i in range(1, 10001):
+    n = i 
+    str_n = str(i)
     
+    total = i
+    for each in str_n:
+        total += int(each)
+       
+    if total <= 10000:
+        visited[total] = False
     
-  
+for i in range(1, 10001):
+    if visited[i]:
+      print(i)
