@@ -1,16 +1,14 @@
-visited = [True] * 10001
+dp_list = [True] * 10001
 
-for i in range(1, 10001):
-    n = i 
-    str_n = str(i)
-    
-    total = i
-    for each in str_n:
-        total += int(each)
-       
-    if total <= 10000:
-        visited[total] = False
-    
-for i in range(1, 10001):
-    if visited[i]:
-      print(i)
+for num in range(1, 10001):
+  total = num
+
+  for n in str(num):
+    total += int(n)
+
+  if total <= 10000:
+    dp_list[total] = False
+
+for x in range(1, 10001):
+  if dp_list[x]:
+    print(x)
