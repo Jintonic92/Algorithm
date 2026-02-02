@@ -1,17 +1,16 @@
-num = int(input())
+n = int(input())
 line = 1
 
-while num > line:
-    num -= line
-    line += 1
-
-#print(num, line)
+while n > line:
+  n -= line
+  line += 1
+  # print(n , line)
 
 if line % 2 == 0:
-    a = num 
-    b = line - num + 1
-else:
-    a = line - num + 1
-    b = num
+  numerator = n
+  denominator = line - n + 1
 
-print(f"{a}/{b}")
+else:
+  numerator = line - n + 1
+  denominator = n
+print(f"{numerator}/{denominator}")
