@@ -1,17 +1,14 @@
-bin  = []
 n = int(input())
-
+all_list = []
 for _ in range(n):
-    w, h = map(int, input().split())
-    bin.append((w, h))
+  x, y = map(int, input().split())
+  all_list.append([x, y])
 
-answer = []
-for i in range(len(bin)):
-    rank = 1
-    for j in range(len(bin)):
-        if bin[i][0] < bin[j][0] and bin[i][1] < bin[j][1]:
-            rank += 1
-    answer.append(rank)
-
-for each in answer:
-    print(each, sep=" ")
+for i in range(len(all_list)):
+  cnt = 1
+  x, y = all_list[i][0], all_list[i][1]
+  for x_com, y_com in all_list:
+    if x < x_com and y < y_com :
+      cnt += 1
+  print(cnt)
+  
