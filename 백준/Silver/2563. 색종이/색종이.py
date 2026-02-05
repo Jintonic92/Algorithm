@@ -1,4 +1,4 @@
-graph = [[False] * 100 for _ in range(100)] 
+graph = [[False] * 100 for _ in range(100)]
 
 n = int(input())
 for _ in range(n):
