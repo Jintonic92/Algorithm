@@ -1,9 +1,9 @@
-a_list = ['c=', 'c-' , 'dz=', 'd-' , 'lj', 'nj', 's=', 'z=' ]
-
+all_list = ['c=', 'c-', 'dz=', 'd-', 'lj', 'nj', 's=', 'z=']
 word = input()
 
-for a in a_list:
-    if a in word:
-        word = word.replace(a, "*")
+for each in all_list:
+  if each in word:
+    word = word.replace(each, '*')
 
 print(len(word))
+  
