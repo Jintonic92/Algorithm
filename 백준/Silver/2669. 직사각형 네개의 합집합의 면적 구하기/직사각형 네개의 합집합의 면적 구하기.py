@@ -1,5 +1,4 @@
-graph = [[False] * 100 for _ in range(100)]
-
+graph = [[False] * 101 for _ in range(101)]
 for _ in range(4):
   a, b, c, d = map(int, input().split())
   for x in range(a, c):
