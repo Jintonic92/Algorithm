@@ -1,13 +1,12 @@
 from collections import deque
+
 n = int(input())
-
-all_list = [x for x in range(1, n+1)]
-
-queue = deque([x for x in range(1, n+1)])
+a_list = deque(x for x in range(1, n+1))
 answer = []
-while len(queue) > 1:    
-  x = queue.popleft()
-  answer.append(x)
-  queue.append(queue.popleft())
 
-print(*answer, queue[0])
+while len(a_list) > 1:
+  answer.append(a_list.popleft())
+  a_list.append(a_list.popleft())
+
+print(*answer, a_list[0])
+  
