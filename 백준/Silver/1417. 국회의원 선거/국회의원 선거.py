@@ -1,24 +1,29 @@
 import heapq
 
 n = int(input())
-goal = int(input())
 a_list = []
-cnt = 0
+goal = int(input())
 
 for _ in range(n-1):
   k = int(input())
   heapq.heappush(a_list, -k)
 
-while a_list:
-  max_vote = -heapq.heappop(a_list)
+cnt = 0 
 
-  if max_vote < goal :
+while a_list:
+  
+  x = -heapq.heappop(a_list)
+
+  if goal > x :
     break
   
-  max_vote -= 1
+  x -= 1
   goal += 1
   cnt += 1
 
-  heapq.heappush(a_list, -max_vote)
+  heapq.heappush(a_list, -x)
 
 print(cnt)
+
+
+
