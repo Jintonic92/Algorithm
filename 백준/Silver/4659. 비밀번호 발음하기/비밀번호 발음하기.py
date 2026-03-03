@@ -1,35 +1,38 @@
-while True:
+while True :
   word = input()
 
   if word == 'end':
     break
   
+  v_cnt = 0
   has_v = False
-  cnt_v = 0
-  cnt_c = 0
-  is_valid = True
+  c_cnt = 0
+  is_good = True
 
-  for i, w in enumerate(word):
+  for idx, w in enumerate(word):
     if w in 'aeiou':
       has_v = True
-      cnt_v += 1
-      cnt_c = 0
+      v_cnt += 1
+      c_cnt = 0
     
     else:
-      cnt_c += 1
-      cnt_v = 0
+      c_cnt += 1
+      v_cnt = 0
     
-    if cnt_c > 2 or cnt_v > 2:
-      is_valid = False
+    if c_cnt > 2 or v_cnt > 2:
+      is_good = False
+      break
     
-    if i > 0 and word[i-1] == word[i]:
-      if w not in 'oe':
-        is_valid = False
-
-  if has_v == False:
-    is_valid = False
+    if idx > 0 and word[idx] == word[idx -1]:
+      if word[idx] not in 'eo':
+        is_good = False 
+        break
   
-  if is_valid :
-    print(f"<{word}> is acceptable.")
-  else:
+  if has_v == False:
+    is_good = False
+  
+  if is_good == False:
     print(f"<{word}> is not acceptable.")
+  
+  else :
+    print(f"<{word}> is acceptable.")
