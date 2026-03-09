@@ -1,23 +1,22 @@
-n, k = map(int, input().split())
-all_list = []
-
+n, m = map(int, input().split())
+a_list = []
 for _ in range(n):
-  all = list(map(int, input().split()))
-  all_list.append(all)
+  line = list(map(int, input().split()))
+  a_list.append(line)
 
-
-all_rank = [0] * 10001
-for nat, a, b, c in all_list:
+r_list = [0] * 10001
+for nat, a, b, c in a_list:
   rank = 1
-  for idx, a_com, b_com, c_com in all_list:
-    if a_com > a :
+  for nat_c, a_c, b_c, c_c in a_list:
+    if a < a_c :
       rank += 1
-    elif a_com == a and b_com > b :
+    
+    elif b < b_c and a == a_c:
       rank += 1
-    elif a_com == a and b_com == b and c_com > c:
+    
+    elif c < c_c and b == b_c and a == a_c:
       rank += 1
-  
-  all_rank[nat] = rank
+    
+    r_list[nat] = rank 
 
-
-print(all_rank[k])
+print(r_list[m])
