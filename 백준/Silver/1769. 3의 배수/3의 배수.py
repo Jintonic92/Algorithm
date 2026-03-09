@@ -1,17 +1,14 @@
-n = input()
-
+w = input()
 cnt = 0
 
-while len(n) > 1:
-  cnt += 1
-  total = 0 
-
-  for i in n:
+while len(w) > 1:
+  
+  total = 0
+  for i in w:
     total += int(i)
-   
-  n = str(total)
 
-n = int(n)
+  w = str(total)
+  cnt += 1
 
 print(cnt)
-print("YES" if n % 3 == 0 else "NO")
+print("YES" if int(w) % 3 == 0 else "NO")
