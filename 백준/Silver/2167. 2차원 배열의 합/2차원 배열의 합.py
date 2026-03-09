@@ -1,23 +1,18 @@
 n, m = map(int, input().split())
-graph = []
-
+a = []
 for _ in range(n):
-  row = list(map(int, input().split()))
-  graph.append(row)
+  line = list(map(int, input().split()))
+  a.append(line)
 
-dp = [[0] * (m+1) for _ in range(n+1)]
+added = [[0] * (m+1) for _ in range(n+1)]
 
-# dp[i][j] = 위 + 아래 + graph 대각선 - 대각선
-# answer[i][k] = 현재 - 위 - 아래 + 대각선 
-
-for x in range(1, n+1):
-  for y in range(1, m+1):
-    dp[x][y] = dp[x-1][y] + dp[x][y-1] + graph[x-1][y-1] - dp[x-1][y-1]
+for i in range(1, n+1):
+  for j in range(1, m+1):
+    added[i][j] = added[i-1][j] + added[i][j-1] + a[i-1][j-1] - added[i-1][j-1]
 
 k = int(input())
-
 for _ in range(k):
   a, b, c, d = map(int, input().split())
-  answer = dp[c][d] - dp[a-1][d] - dp[c][b-1] + dp[a-1][b-1]
+  answer = added[c][d] - added[a-1][d] - added[c][b-1] + added[a-1][b-1]
 
   print(answer)
