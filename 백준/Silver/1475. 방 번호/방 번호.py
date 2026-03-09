@@ -1,13 +1,17 @@
-num = input()
-to_ten = [0 for _ in range(10)]
-for n in num: 
-  n = int(n)
-  if n == 6 or n == 9:
-    if to_ten[6] < to_ten[9]:
-      to_ten[6] += 1
-    else: to_ten[9] += 1
-  
-  else:
-    to_ten[n] += 1
+from collections import deque
 
-print(max(to_ten))
+n = input()
+
+dp = [0] * 10
+
+for i in n :
+  i = int(i)
+  if i == 6 or i == 9:
+    if dp[6] < dp[9]:
+      dp[6] += 1
+    else:
+      dp[9] += 1
+  else:
+    dp[i] += 1
+
+print(max(dp))
