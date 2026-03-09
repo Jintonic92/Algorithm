@@ -1,16 +1,17 @@
 from datetime import date
 
-today = date.today()
-result = []
 n = int(input())
 
+a_list =[]
+today = date.today()
+
 for _ in range(n):
-  word = input().split()
-  days = date(int(word[3]), int(word[2]), int(word[1]))
-  name = word[0]
-  result.append([name, (today - days).days])
+  name, d, m, y = input().split()
+  # today 
+  born = date(int(y), int(m), int(d))
+  a_list.append([name, (today - born).days])
 
-result.sort(key = lambda x : x[1])
+a_list.sort(key = lambda x : x[1])
 
-print(result[0][0])
-print(result[-1][0])
+print(a_list[0][0])
+print(a_list[-1][0])
