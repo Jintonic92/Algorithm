@@ -1,14 +1,15 @@
 n = int(input())
-all_list = []
+a_list = []
 for _ in range(n):
-  x, y = map(int, input().split())
-  all_list.append([x, y])
+  line = list(map(int, input().split()))
+  a_list.append(line)
 
-for i in range(len(all_list)):
-  cnt = 1
-  x, y = all_list[i][0], all_list[i][1]
-  for x_com, y_com in all_list:
-    if x < x_com and y < y_com :
-      cnt += 1
-  print(cnt)
-  
+answer = []
+for x, y in a_list:
+  rank = 1
+  for x_c, y_c in a_list:
+    if x < x_c and y < y_c :
+      rank += 1
+  answer.append(rank)
+
+print(*answer)
