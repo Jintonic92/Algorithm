@@ -1,26 +1,30 @@
-n,m = map(int, input().split())
+n, m = map(int, input().split())
 j = int(input())
+left = 1 # 바구니의 가장 왼쪽
+right = m # 바구니의 가장 오른쪽
 
-left = 1 # 현재 상태
-right = m # 가장 오른쪽
-total_move = 0 
-
+a_list = []
 for _ in range(j):
-  apple = int(input())
+  x = int(input())
+  a_list.append(x)
 
-  if apple > right:
+total_move = 0
+for i in range(len(a_list)):
+  apple = a_list[i]
+
+  if right < apple :
     move = apple - right
-    total_move += move
+    left += move 
     right = apple
-    left += move
+    total_move += move 
   
-  elif apple < left:
-    move = left - apple
-    total_move += move
+  elif apple < left :
+    move = left - apple 
     left = apple
-    right -= move
-  
+    right -= move 
+    total_move += move
+
   else:
-    continue
+    continue 
 
 print(total_move)
