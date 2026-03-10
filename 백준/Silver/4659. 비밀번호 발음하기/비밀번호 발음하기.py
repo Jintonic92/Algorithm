@@ -1,12 +1,13 @@
-while True:
+while True :
   word = input()
+
+  if word == 'end':
+    break 
+  
   has_v = False
   is_v = 0
   is_c = 0 
   is_valid = True 
-
-  if word == 'end':
-    break 
   
   for i in range(len(word)):
     w = word[i]
@@ -16,22 +17,22 @@ while True:
       is_v += 1
       is_c = 0 
     
-    else:
+    else :
+      is_v = 0
       is_c += 1
-      is_v = 0 
     
-    if is_v > 2 or is_c > 2:
+    if is_c > 2 or is_v > 2:
       is_valid = False
     
-    if i > 0 and is_v >= 2 or is_c >= 2:
-      if word[i] == word[i-1]:
-        if word[i] not in 'eo':
-          is_valid = False
-
-  if not has_v:
+    if i > 0 and word[i-1] == word[i]:
+      if w not in 'eo':
+        is_valid = False
+  
+  if has_v == False:
     is_valid = False
   
-  if is_valid == False:
-    print(f"<{word}> is not acceptable.")
-  else:
+  if is_valid == True:
     print(f"<{word}> is acceptable.")
+  
+  else :
+    print(f"<{word}> is not acceptable.")
