@@ -1,24 +1,21 @@
-n, m = map(int, input().split())
+n , m = map(int, input().split())
 a = []
-b = []
-
 for _ in range(n):
-  row = list(map(int, input().split()))
-  a.append(row)
+  line = list(map(int, input().split()))
+  a.append(line)
 
-m, k = map(int, input().split())  
+m, k =map(int, input().split())
 
+b = []
 for _ in range(m):
-  row = list(map(int, input().split()))
-  b.append(row)
+  line = list(map(int, input().split()))
+  b.append(line)
 
-result = [[0] * k for _ in range(n)]
+answer = [[0] * k for _ in range(n)]
+for i in range(n):
+  for j in range(k):
+    for l in range(m): # 공통
+      answer[i][j] += a[i][l] * b[l][j]
 
-# 행렬 곱셈
-for x in range(n): # a행
-  for y in range(k): # b열
-    for z in range(m): # 공통 
-      result[x][y] += a[x][z] * b[z][y]
-
-for row in result:
+for row in answer:
   print(*row)
