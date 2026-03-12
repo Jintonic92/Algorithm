@@ -1,18 +1,23 @@
 n = int(input())
 
-for k in range(n):
- line = list(map(int, input().split()))
- l_list = line[1:]
- l_list.sort()
- max_c = l_list[-1]
- min_c = l_list[0]
+for idx in range(1, n+1):
+  line = list(map(int, input().split()))
 
- max_d= 0 
- for i in range(1, line[0]):
-  diff = l_list[i] - l_list[i-1]
-  max_d = max(diff, max_d)
-
- print(f"Class {k+1}")
- print(f"Max {max_c}, Min {min_c}, Largest gap {max_d}")
-
+  m = line[0]
+  line = line[1:]
   
+  line.sort()
+  max_diff = 0
+  
+  for j in range(m-1, 0, -1):
+    # print(line)
+    # print(j, j-1)
+    # print(line[j], line[j-1])
+    max_diff = max(max_diff, line[j] - line[j-1])
+  
+  max_s = max(line)
+  min_s = min(line)
+
+  print(f"Class {idx}")
+  print(f"Max {max_s}, Min {min_s}, Largest gap {max_diff}")
+    
