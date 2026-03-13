@@ -1,20 +1,17 @@
 n = int(input())
 
-for _ in range(n):
+a_list = []
+for idx in range(n):
   line = list(map(int, input().split()))
-  idx = line[0]
-  heights = line[1:]
+  a_list.append(line)
+  class_idx = line[0]
+  l_list = line[1:]
+  cnt = 0 
 
-  l_list = []
-  total_cnt = 0 
-
-  for h in heights:
-    cnt = 0
-    for l in l_list: # 내 앞에 나보다 키큰 사람 몇명 
-      if h < l:
+  for i in range(len(l_list)-1, -1, -1):
+    for j in range(i):
+      # print(i, j)
+      if l_list[i] < l_list[j]:
         cnt += 1
-    total_cnt += cnt
-    l_list.append(h)
-    # l_list.sort() 
-  
-  print(idx, total_cnt)
+  print(class_idx)
+  print(cnt)
