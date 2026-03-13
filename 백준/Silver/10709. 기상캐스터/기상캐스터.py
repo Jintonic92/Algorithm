@@ -1,21 +1,18 @@
-h, w = map(int, input().split())
-graph = []
+n, m = map(int, input().split())
+a_list = []
 
-for _ in range(h):
+for _ in range(n):
   line = input()
-  graph.append(line)
+  a_list.append(line)
 
-a_list = [[-1] * w for _ in range(h)]
+graph = [[-1] * m for _ in range(n)]
+for i in range(n):
+  for j in range(m):
+    if a_list[i][j] == 'c':
+      graph[i][j] = 0
+      for k in range(j, m):
+        if a_list[i][k] == '.':
+          graph[i][k] = graph[i][k-1] + 1
 
-for i in range(h):
-  for j in range(w):
-    if graph[i][j] == 'c':
-      a_list[i][j] = 0
-      for k in range(j+1, w):
-        if graph[i][k] == '.':
-          a_list[i][k] = a_list[i][k-1] + 1
-        else:
-          continue
-
-for row in a_list:
+for row in graph:
   print(*row)
