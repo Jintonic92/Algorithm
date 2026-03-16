@@ -1,20 +1,20 @@
 a, b = map(int, input().split())
-n = int(input())
-a_list = list(map(int, input().split()))
+m = int(input())
+line = list(map(int, input().split()))
+
+num = 0
+for idx, x in enumerate(line[::-1]):
+  num += x * a ** idx
+
+a_list = []
+while num > 0:
+  x = num % b 
+  a_list.append(x)
+  num //= b
+
+if not a_list:
+  a_list = [0]
+
+print(*a_list[::-1])
 
 
-total = 0 
-j = 0
-for i in range(n - 1, -1, -1):
-    total += a_list[i] * a**j
-    j += 1
-
-if total == 0:
-  print(0)
-else:
-  answer = []
-  while total > 0:
-    answer.append(total % b)
-    total //= b
-
-  print(*(answer[::-1]))
