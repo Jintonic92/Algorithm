@@ -1,6 +1,7 @@
 word = input()
+
 a_list = []
-for i in range(1, len(word)-2):
+for i in range(1, len(word)-1):
   for j in range(i+1, len(word)):
     a, b, c = word[:i], word[i:j], word[j:]
     a, b, c = a[::-1], b[::-1], c[::-1]
