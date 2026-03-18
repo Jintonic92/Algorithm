@@ -1,20 +1,17 @@
-a, b = map(int, input().split())
-m = int(input())
+n, m = map(int, input().split())
+l = int(input())
 line = list(map(int, input().split()))
-
-num = 0
-for idx, x in enumerate(line[::-1]):
-  num += x * a ** idx
+x = 0
+for i in range(l):
+  x += line[l-i-1] * n ** i
 
 a_list = []
-while num > 0:
-  x = num % b 
-  a_list.append(x)
-  num //= b
+while x > 0 :
+  left = x % m
+  a_list.append(left)
+  x //= m 
 
 if not a_list:
   a_list = [0]
 
 print(*a_list[::-1])
-
-
