@@ -1,34 +1,34 @@
 n = int(input())
-graph = []
 
+graph = []
 for _ in range(n):
   line = input()
   graph.append(line)
 
-a_list = [[0] * n for _ in range(n)]
-
-row_cnt = 0 
-for i in range(n):
+r_cnt = 0
+for x in range(n):
   cnt = 0
-  for j in range(n):
-    if graph[i][j] == '.':
+  for y in range(n):
+    if graph[x][y] == '.':
       cnt += 1
-    
-    if j == n -1 or graph[i][j] == 'X':
-      if cnt > 1:
-        row_cnt += 1
+  
+      if cnt == 2:
+        r_cnt += 1
+        
+    if graph[x][y] == 'X' or y == n-1:
       cnt = 0 
 
-col_cnt  = 0 
-for j in range(n):
+c_cnt = 0
+for y in range(n):
   cnt = 0
-  for i in range(n):
-    if graph[i][j] == '.':
+  for x in range(n):
+    if graph[x][y] == '.':
       cnt += 1
+  
+      if cnt == 2:
+        c_cnt += 1
     
-    if i == n -1 or graph[i][j] == 'X':
-      if cnt > 1:
-        col_cnt += 1
+    if graph[x][y] == 'X' or x == n-1:
       cnt = 0 
 
-print(row_cnt, col_cnt)
+print(r_cnt, c_cnt)
