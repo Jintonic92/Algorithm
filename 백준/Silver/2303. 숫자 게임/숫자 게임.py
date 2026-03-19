@@ -1,22 +1,21 @@
 n = int(input())
-a_list = []
-max_score = -1
+max_idx = 0 
+all_max = 0 
+
 for idx in range(1, n+1):
-  c_list = list(map(int, input().split()))
+  line = list(map(int, input().split()))
+  his_max = 0
+  for i in range(len(line)):
+    for j in range(i+1, len(line)):
+      for k in range(j+1, len(line)):
+        a, b, c = line[i], line[j], line[k]
 
-  max_div = 0 
-  for i in range(5):
-    for j in range(i+1, 5):
-      for k in range(j+1, 5):
-        a, b, c = c_list[i], c_list[j], c_list[k]
-        sum_n = a + b + c
-        div = sum_n % 10 
-
-        if div >= max_div:
-          max_div = div 
+        div = (a + b + c) % 10
+        his_max = max(div, his_max)
   
-  if max_score <= max_div:
-    max_score = max_div
-    max_p = idx 
-    
-print(max_p)
+  if all_max <= his_max:
+    max_idx = max(idx, max_idx)
+    all_max = his_max 
+
+  # print(idx, all_max, max_idx)
+print(max_idx)
