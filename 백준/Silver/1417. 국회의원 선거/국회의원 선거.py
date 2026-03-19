@@ -1,28 +1,27 @@
 import heapq
 
 n = int(input())
-goal = int(input())
+curr = int(input())
+
 a_list = []
 for _ in range(n-1):
-  k = int(input())
-  heapq.heappush(a_list, -k)
+  m = int(input())
+  heapq.heappush(a_list, -m)
 
-cnt = 0
-if len(a_list) == 0:
-  print(cnt)
-else: 
-  while True :
+cnt = 0 
 
-    x = -heapq.heappop(a_list)
+while a_list:
 
-    if goal > x:
-      break 
-    
-    cnt += 1
-    x -= 1
-    goal += 1
 
-    heapq.heappush(a_list, -x)
-
-  print(cnt)
+  x = - heapq.heappop(a_list)
   
+  if x < curr:
+    break
+  
+  x -= 1
+  curr += 1
+  cnt += 1
+
+  heapq.heappush(a_list, -x)
+
+print(cnt)
