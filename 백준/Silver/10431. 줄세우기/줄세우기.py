@@ -1,12 +1,16 @@
 n = int(input())
-for _ in range(n):
+a_list = []
+for idx in range(1, n+1):
   line = list(map(int, input().split()))
-  c_num = line[0]
+  a_list.append(line)
 
-  total_cnt = 0
-  for i in range(1, len(line)):
-    for j in range(i, len(line)):
-      if line[i] > line[j]:
-       total_cnt += 1
+  m = line[0]
+  line = line[1:]
+  cnt = 0
 
-  print(c_num, total_cnt)
+  for k in range(len(line)):
+    for j in range(k+1, len(line)):
+      if line[k] > line[j]:
+        cnt += 1
+  
+  print(idx, cnt)
