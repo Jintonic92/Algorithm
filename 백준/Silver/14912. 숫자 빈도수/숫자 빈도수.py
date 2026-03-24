@@ -1,9 +1,8 @@
-n, m = input().split()
-line = list(x for x in range(1, int(n)+1))
-line = list(map(str, line))
-cnt = 0 
-for x in line:
-  for each in x:
-    if m == each:
-      cnt += 1
+n, m = map(int, input().split())
+
+cnt = 0
+for i in range(1, n+1):
+  str_i = str(i)
+  cnt += str_i.count(str(m))
+
 print(cnt)
