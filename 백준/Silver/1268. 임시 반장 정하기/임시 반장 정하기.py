@@ -1,24 +1,26 @@
 n = int(input())
-graph = []
+
+a_list = []
 for _ in range(n):
   line = list(map(int, input().split()))
-  graph.append(line)
+  a_list.append(line)
 
-pred = 0 
-max_cnt = -1
+pred = 0
+max_cnt = -1 
 for i in range(n):
   cnt = 0 
   for j in range(n):
-    if i == j : # 같은 아이라면
-      continue 
-    
-    for k in range(5): #5학년동안 
-      if graph[i][k] == graph[j][k]:
+    if i == j :
+      continue
+    for k in range(5):
+      if a_list[i][k] == a_list[j][k]:
         cnt += 1
         break 
-
+  
   if cnt > max_cnt :
     max_cnt = cnt
-    pred = i + 1 
+    pred = i +1 
 
 print(pred)
+  
+  
