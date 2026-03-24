@@ -1,23 +1,28 @@
 n, m = map(int, input().split())
-j = int(input())
+k = int(input())
+
+a_list = []
+for _ in range(k):
+  apple = int(input())
+  a_list.append(apple)
+
 left = 1
 right = m 
+total_move = 0
 
-total_move = 0 
-for _ in range(j):
-  apple = int(input())
-  
-  if apple < left:
-    move = left - apple
+for a in a_list:
+
+  if a < left :
+    move = left - a
     total_move += move
-    left = apple
-    right -= move 
+    left = a
+    right -= move
   
-  elif apple > right:
-    move = apple - right
+  elif a > right :
+    move = a - right
     total_move += move
+    right = a
     left += move
-    right = apple
   
   else:
     continue
