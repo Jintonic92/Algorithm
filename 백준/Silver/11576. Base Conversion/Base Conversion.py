@@ -1,17 +1,17 @@
-n, m = map(int, input().split())
-l = int(input())
-line = list(map(int, input().split()))
-x = 0
-for i in range(l):
-  x += line[l-i-1] * n ** i
+a, b = map(int, input().split())
+m = int(input())
+a_list = list(map(int, input().split()))
 
-a_list = []
-while x > 0 :
-  left = x % m
-  a_list.append(left)
-  x //= m 
+base = 0
+for idx in range(m):
+  base += a_list[m-idx-1] * a ** idx 
 
-if not a_list:
-  a_list = [0]
+b_list = []
+while base > 0:
 
-print(*a_list[::-1])
+  left = base % b
+  base //= b
+  b_list.append(left)
+
+print(*b_list[::-1])
+
