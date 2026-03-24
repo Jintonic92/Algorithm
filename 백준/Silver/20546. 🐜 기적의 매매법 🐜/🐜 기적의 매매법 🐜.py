@@ -1,42 +1,36 @@
-curr = int(input())
-line = list(map(int, input().split()))
+start = int(input())
+p_list = list(map(int, input().split()))
 
-# 1. 준현 
-curr_j = curr
-j_cnt = 0 
+# 준헌
+bnp_cash = start
+bnp_stock = 0
 
-for each in line:
-    if curr_j >= each:  # 등호 포함
-        max_possible = curr_j // each 
-        curr_j -= max_possible * each 
-        j_cnt += max_possible
+for p in p_list:
+  if bnp_cash >= p:
+    bnp_stock += bnp_cash // p
+    bnp_cash %= p
+bnp_total = bnp_cash + (bnp_stock * p_list[-1])
 
-# 2. 성민 
-curr_s = curr
-s_cnt = 0 
+# 성민
+tim_cash = start
+tim_stock = 0
 
-for idx, each in enumerate(line):
-    if idx >= 3:
-        # 3일 연속 하락시
-        if line[idx-3] > line[idx-2] and line[idx-2] > line[idx-1] and line[idx-1] > line[idx]:
-            if curr_s >= each:
-                max_possible = curr_s // each 
-                curr_s -= max_possible * each 
-                s_cnt += max_possible
-        
-        # 3일 연속 상승시
-        elif line[idx-3] < line[idx-2] and line[idx-2] < line[idx-1] and line[idx-1] < line[idx]:
-            curr_s += each * s_cnt 
-            s_cnt = 0 
+for i in range(3, 14):
+  # 3일 연속 하락 시 전량 매수 
+  if p_list[i-3] > p_list[i-2] > p_list[i-1] > p_list[i]:
+    if tim_cash >= p_list[i]:
+      tim_stock += tim_cash // p_list[i]
+      tim_cash %= p_list[i]
+  
+  # 3일 연속 상승 시 전량 매도 
+  elif p_list[i-3] < p_list[i-2] < p_list[i-1] < p_list[i]:
+    tim_cash += tim_stock * p_list[i]
+    tim_stock = 0
+tim_total = tim_cash + (tim_stock * p_list[-1])
 
-# 3. 최종 자산 계산
-asset_j = curr_j + (j_cnt * line[-1])
-asset_s = curr_s + (s_cnt * line[-1])
-
-# 4. 결과 출력
-if asset_j > asset_s:
-    print("BNP")
-elif asset_j < asset_s:
-    print("TIMING")
+if bnp_total > tim_total:
+  print("BNP")
+elif bnp_total < tim_total :
+  print("TIMING")
 else:
-    print("SAMESAME")
+  print("SAMESAME")
