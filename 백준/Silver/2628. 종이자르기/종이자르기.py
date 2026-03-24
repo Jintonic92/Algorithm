@@ -1,26 +1,25 @@
 n, m = map(int, input().split())
 k = int(input())
-r_list = [0, m]
-c_list = [0, n]
+
+x_list = [0, n]
+y_list = [0, m]
 
 for _ in range(k):
-  a, b = map(int, input().split())
-  if a == 0 :
-    r_list.append(b)
+  d, c = map(int, input().split())
+  if d == 0 :
+    y_list.append(c)
   else:
-    c_list.append(b)
+    x_list.append(c)
 
-c_list.sort(reverse = True)
-r_list.sort(reverse = True)
+x_list.sort()
+y_list.sort()
 
-max_c = 0
-max_r = 0 
-for i in range(len(c_list)-2, -1, -1):
-  diff = c_list[i] - c_list[i+1]
-  max_c = max(diff, max_c)
+max_x = 0
+max_y = 0
+for i in range(1, len(x_list)):
+  max_x = max(x_list[i] - x_list[i-1], max_x)
 
-for j in range(len(r_list)-2, -1, -1):
-  diff = r_list[j] - r_list[j+1]
-  max_r = max(diff, max_r)
+for j in range(1, len(y_list)):
+  max_y = max(y_list[j] - y_list[j-1], max_y)
 
-print(max_c * max_r)
+print(max_x * max_y)
