@@ -5,30 +5,35 @@ for _ in range(n):
   line = input()
   graph.append(line)
 
-r_cnt = 0
-for x in range(n):
+row_cnt = 0
+for i in range(n):
   cnt = 0
-  for y in range(n):
-    if graph[x][y] == '.':
+  for j in range(n):
+    if graph[i][j] == '.':
       cnt += 1
-  
-      if cnt == 2:
-        r_cnt += 1
-        
-    if graph[x][y] == 'X' or y == n-1:
-      cnt = 0 
 
-c_cnt = 0
-for y in range(n):
-  cnt = 0
-  for x in range(n):
-    if graph[x][y] == '.':
-      cnt += 1
-  
-      if cnt == 2:
-        c_cnt += 1
+    else:
+      
+      if cnt >= 2:
+        row_cnt += 1
+      cnt = 0 
     
-    if graph[x][y] == 'X' or x == n-1:
-      cnt = 0 
+    if j == n-1 and cnt >= 2:
+      row_cnt += 1
 
-print(r_cnt, c_cnt)
+col_cnt = 0
+for j in range(n):
+  cnt = 0
+  for i in range(n):
+    if graph[i][j] == '.':
+      cnt += 1
+
+    else:
+      if cnt >= 2:
+        col_cnt += 1
+      cnt = 0
+    
+    if i == n-1 and cnt >= 2:
+      col_cnt += 1
+
+print(row_cnt, col_cnt)  
