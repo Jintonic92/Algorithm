@@ -1,36 +1,33 @@
-start = int(input())
-p_list = list(map(int, input().split()))
+seed = int(input())
+line = list(map(int, input().split()))
 
-# 준헌
-bnp_cash = start
-bnp_stock = 0
-
-for p in p_list:
-  if bnp_cash >= p:
-    bnp_stock += bnp_cash // p
-    bnp_cash %= p
-bnp_total = bnp_cash + (bnp_stock * p_list[-1])
+# 준현
+jh_curr = seed
+max_b = 0  
+for i in range(len(line)):
+  if jh_curr >= line[i]:
+    max_b += jh_curr // line[i]
+    jh_curr %= line[i]
+  
+  if i == len(line)-1:
+    jh_total = jh_curr + line[i] * max_b
 
 # 성민
-tim_cash = start
-tim_stock = 0
-
-for i in range(3, 14):
-  # 3일 연속 하락 시 전량 매수 
-  if p_list[i-3] > p_list[i-2] > p_list[i-1] > p_list[i]:
-    if tim_cash >= p_list[i]:
-      tim_stock += tim_cash // p_list[i]
-      tim_cash %= p_list[i]
+sh_curr = seed
+max_b = 0
+for i in range(3, len(line)):
+  if line[i-3] > line[i-2] > line[i-1] > line[i]:
+    if sh_curr >= line[i]:
+      max_b += sh_curr // line[i]
+      sh_curr %= line[i]
   
-  # 3일 연속 상승 시 전량 매도 
-  elif p_list[i-3] < p_list[i-2] < p_list[i-1] < p_list[i]:
-    tim_cash += tim_stock * p_list[i]
-    tim_stock = 0
-tim_total = tim_cash + (tim_stock * p_list[-1])
+  elif line[i-3] < line[i-2] < line[i-1] < line[i]:
+    sh_curr += max_b * line[i]
+    max_b = 0
+  
+  if i == len(line)-1:
+    sh_total = sh_curr + line[i] * max_b
 
-if bnp_total > tim_total:
-  print("BNP")
-elif bnp_total < tim_total :
-  print("TIMING")
-else:
-  print("SAMESAME")
+if jh_total > sh_total : print("BNP")
+elif jh_total < sh_total : print("TIMING")
+else: print("SAMESAME")
