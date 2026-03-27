@@ -1,9 +1,8 @@
-x = input()
+w = input()
 
-x = x.replace('XXXX', 'AAAA')
-x = x.replace('XX', 'BB')
+w = w.replace('XXXX', "AAAA")
+w = w.replace('XX', 'BB')
 
-if 'X' in x:
+if 'X' in w:
   print(-1)
-else:
-  print(x)
+else: print(w)
