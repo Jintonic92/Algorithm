@@ -1,6 +1,6 @@
-n, m = map(int, input().split())
-
 graph = [[0] * 101 for _ in range(101)]
+
+n, m = map(int, input().split())
 
 for _ in range(n):
   x, y, x_n, y_n = map(int, input().split())
@@ -9,9 +9,9 @@ for _ in range(n):
       graph[i][j] += 1
 
 cnt = 0
-for i in range(1, 101):
-  for j in range(1, 101):
-    if graph[i][j] > m:
+for x in range(101):
+  for y in range(101):
+    if graph[x][y] > m:
       cnt += 1
 
 print(cnt)
