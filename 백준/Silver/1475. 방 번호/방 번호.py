@@ -1,17 +1,12 @@
-from collections import deque
-
 n = input()
-
 dp = [0] * 10
-
-for i in n :
-  i = int(i)
-  if i == 6 or i == 9:
+for each in n :
+  each = int(each)
+  if each == 6 or each == 9:
     if dp[6] < dp[9]:
       dp[6] += 1
-    else:
-      dp[9] += 1
+    else : dp[9] += 1
   else:
-    dp[i] += 1
+    dp[each] += 1
 
 print(max(dp))
