@@ -1,12 +1,15 @@
 from datetime import date
-n = int(input())
-a_list = []
 
+n = int(input())
+today = date.today()
+
+a_list = []  
 for _ in range(n):
-  name, d, m, y = input().split()
-  today = date.today()
-  a_list.append([name, (today - date(int(y), int(m), int(d))).days])
+  name, a, b, c = input().split()
+  birth = date(int(c), int(b), int(a))
+  a_list.append([name, (today - birth).days])
 
 a_list.sort(key = lambda x : x[1])
+
 print(a_list[0][0])
 print(a_list[-1][0])
