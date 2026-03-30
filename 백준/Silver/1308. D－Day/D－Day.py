@@ -1,22 +1,19 @@
 def is_leap(y):
-  return (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0 )
+  return (y % 4 == 0 and y % 100 != 0 ) or ( y % 400 == 0)
 
 def get_days(y, m, d):
   months = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-  # 연도별 일수 
   total = 0
   for i in range(1, y):
     total += 366 if is_leap(i) else 365
-  
-  # 월별 일수
+
   for i in range(1, m):
     if i == 2 and is_leap(y):
-      total += 29 
+      total += 29
     else:
       total += months[i]
   
-  # 일수
   return total + d
 
 y1, m1, d1 = map(int, input().split())
