@@ -1,8 +1,10 @@
 n, m = map(int, input().split())
-line = [ x for x in range(1, n+1)]
+
+a_list = [x for x in range(1, n+1)]
 cnt = 0
-for a in line:
-  str_a = str(a)
-  cnt += str_a.count(str(m))
+
+for i in a_list:
+  str_i = str(i)
+  cnt += str_i.count(str(m))
 
 print(cnt)
