@@ -1,15 +1,13 @@
 n = int(input())
+
 a_list = []
 for _ in range(n):
-  line = list(map(int, input().split()))
-  a_list.append(line)
+  w, h = map(int, input().split())
+  a_list.append([w, h])
 
-answer = []
-for x, y in a_list:
+for a, b in a_list:
   rank = 1
-  for x_c, y_c in a_list:
-    if x < x_c and y < y_c :
+  for a_c, b_c in a_list:
+    if a < a_c and b < b_c :
       rank += 1
-  answer.append(rank)
-
-print(*answer)
+  print(rank, end = ' ')
