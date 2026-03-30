@@ -4,7 +4,7 @@ for _ in range(n):
   line = list(map(int, input().split()))
   graph.append(line)
 
-max_cnt = -1 
+max_cnt = -1
 temp = 0
 for i in range(n):
   cnt = 0 
@@ -14,10 +14,10 @@ for i in range(n):
     for k in range(5):
       if graph[i][k] == graph[j][k]:
         cnt += 1
-        break 
+        break
     
     if cnt > max_cnt :
-      max_cnt = cnt 
+      max_cnt = cnt
       temp = i + 1
-
+  
 print(temp)
