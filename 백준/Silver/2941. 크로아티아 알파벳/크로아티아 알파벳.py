@@ -1,9 +1,9 @@
-a_list = ['c=', 'c-', 'dz=', 'd-', 'lj', 'nj', 's=', 'z=']
-
+a_list = ["c=", 'c-', 'dz=', 'd-', 'lj', 'nj', 's=', 'z=']
 word = input()
 
 for a in a_list:
-  if a in word:
-    word = word.replace(a, ' ')
+  # print(a)
+  word = word.replace(a, 'i')
+  # print(word)
 
 print(len(word))
