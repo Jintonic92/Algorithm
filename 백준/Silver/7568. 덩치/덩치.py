@@ -2,12 +2,13 @@ n = int(input())
 
 a_list = []
 for _ in range(n):
-  w, h = map(int, input().split())
-  a_list.append([w, h])
+  line = list(map(int, input().split()))
+  a_list.append(line)
 
-for a, b in a_list:
+
+for x, y in a_list:
   rank = 1
-  for a_c, b_c in a_list:
-    if a < a_c and b < b_c :
+  for x_c, y_c in a_list:
+    if x < x_c and y < y_c:
       rank += 1
   print(rank, end = ' ')
