@@ -1,12 +1,13 @@
 a_list = ['aya', 'ye', 'woo', 'ma']
 def solution(babbling):
-    cnt = 0
+    answer = 0 
     
     for b in babbling:
         for a in a_list:
             b = b.replace(a, " ")
-        
+
+        # print(b, b.strip())
         if b.strip() == "":
-            cnt +=1 
-            
-    return cnt
+            answer += 1
+    
+    return answer
