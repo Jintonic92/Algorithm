@@ -1,20 +1,16 @@
-
 def solution(lines):
     answer = 0
-    # 빈리스트에서 visited 개념으로 진행
-    # 각수에 +100을 해서 음수도 처리할 수 있도록 처리 
-    # 겹칠때마다 +1 을 하면서 가장 큰 수를 반환
-    a_list = [0] * 202    
-    for i in range(len(lines)):
-        a, b = lines[i]
-        a += 100
-        b += 100
+    # 음수 처리를 위해 모든 수에 +100 하기
+    # visited list를 만들어서 +1씩하고 
+    # 겹치는 선 : > 2 인 것들만 뽑기 
+    visited = [0] * 201
 
-        for j in range(a, b):
-            a_list[j] += 1
+    for a, b in lines:
+        for i in range(a, b):
+            visited[i] += 1
     
-    for cnt in a_list:
-        if cnt >= 2:
+    for i in range(len(visited)):
+        if visited[i] >= 2:
             answer += 1
     
     return answer
