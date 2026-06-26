@@ -7,25 +7,24 @@ def solution(a, b, c, d):
     visited[c] += 1
     visited[d] += 1
     
-    # print(visited)
-
     if max(visited) == 4:
-      return a * 1111
+        return 1111 * a
     
     if max(visited) == 3:
-      idx3 = [i for i, value in enumerate(visited) if value == 3][0]
-      idx1 = [i for i, value in enumerate(visited) if value == 1][0]
-      return (10 * idx3 + idx1)**2
-
+        idx3 = [i for i, value in enumerate(visited) if value == 3][0]
+        idx1 = [i for i, value in enumerate(visited) if value == 1][0]
+        return (10 * idx3 + idx1)**2
+    
     if visited.count(2) == 2:
-      idx1 = [i for i, value in enumerate(visited) if value == 2][0]
-      idx2 = [i for i, value in enumerate(visited) if value == 2][1]
-      return (idx1 + idx2) * abs(idx1 - idx2)
+        idx1 = [i for i, value in enumerate(visited) if value == 2][0]
+        idx2 = [i for i, value in enumerate(visited) if value == 2][1]
+        return (idx1 + idx2) * abs(idx1 - idx2)
     
-    if max(visited) == 2 :
-      idx1 = [i for i, value in enumerate(visited) if value == 1][0]
-      idx2 = [i for i, value in enumerate(visited) if value == 1][1]
-      return idx1 * idx2
+    if max(visited) == 2:
+        idx1 = [i for i, value in enumerate(visited) if value == 1][0]
+        idx2 = [i for i, value in enumerate(visited) if value == 1][1]
+        return idx1 * idx2
     
-    else:
-      return min(a, b, c, d)
+    else :
+        return min(a, b, c, d)
+    
