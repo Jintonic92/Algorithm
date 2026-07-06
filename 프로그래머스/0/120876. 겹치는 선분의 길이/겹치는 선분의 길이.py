@@ -1,16 +1,17 @@
 def solution(lines):
     answer = 0
-    # 음수 처리를 위해 모든 수에 +100 하기
-    # visited list를 만들어서 +1씩하고 
-    # 겹치는 선 : > 2 인 것들만 뽑기 
+    # 겹치는 길이 
+    # visited으로 겹치는 구간 표시 
+    # visited >= 2 인 애들의 길이 표시
+    
     visited = [0] * 201
-
-    for a, b in lines:
-        for i in range(a, b):
+    
+    for s, e in lines:
+        s, e = s + 100, e + 100
+        for i in range(s, e):
             visited[i] += 1
     
-    for i in range(len(visited)):
-        if visited[i] >= 2:
+    for x in range(200):
+        if visited[x] >= 2:
             answer += 1
-    
     return answer
