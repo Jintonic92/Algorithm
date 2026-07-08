@@ -1,34 +1,31 @@
 def solution(a, b, c, d):
-    answer = 0
-    # 각 주사위 수를 셈 
-    visited = [0] * 7
-    visited[a] += 1
-    visited[b] += 1
-    visited[c] += 1
-    visited[d] += 1
     
-    # 4개가 같으면 max(visited) == 4
-    # 3개가 같고 하나만 다르다면 max(visited) == 3
-    # 2개가 같고 
-        # 나머지도 같으면 len(set()) == 2
-        # 나머지가 다르다면 len(set()) == 3
-    if max(visited) == 4:
-        return 1111 * a
+    # 4자리수가 같다 len(set()) == 1
+    # 3자리수가 같다 max(visted) == 3
+    # 2자리수가 2개이다 set() == 2 
+    # 2자리수가 1개이고 나머지 2개 max(visited) == 2이고 len(set()) == 3
+    # 모두가 다르다 else
+    
+    a_list = [a, b, c, d]
+    answer = min(a_list)
+    visited = [0] * 7
+    for i in a_list:
+        visited[i] += 1
+    
+    if len(set(a_list)) == 1:
+        p = a
+        return 1111 * p 
     if max(visited) == 3:
-        idx3 = [i for i, value in enumerate(visited) if value == 3][0]
-        idx1 = [i for i, value in enumerate(visited) if value == 1][0]
-        return (10 * idx3 + idx1)**2
-    if len(set([a, b, c, d])) == 2:
-        idx2 = [i for i, value in enumerate(visited) if value == 2][0]
-        idx22 = [i for i, value in enumerate(visited) if value == 2][1]
-        return (idx2 + idx22) * abs(idx2 - idx22)
-    if len(set([a, b, c, d])) == 3:
-        idx2 = [i for i, value in enumerate(visited) if value == 1][0]
-        idx3 = [i for i, value in enumerate(visited) if value == 1][1]
-        return idx2 * idx3
-    else:
-        return min(a, b, c, d)
-       
-
+        p = [x for x, value in enumerate(visited) if value == 3][0]
+        q = [x for x, value in enumerate(visited) if value == 1][0]
+        return (10 * p + q)**2
+    if len(set(a_list)) == 2:
+        p = [x for x, value in enumerate(visited) if value == 2][0]
+        q = [x for x, value in enumerate(visited) if value == 2][1]
+        return (p + q) * abs(p - q)
+    if max(visited) == 2 and len(set(a_list)) == 3:
+        q = [x for x, value in enumerate(visited) if value == 1][0]
+        r = [x for x, value in enumerate(visited) if value == 1][1]
+        return q * r
+    
     return answer
-
