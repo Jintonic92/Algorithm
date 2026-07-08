@@ -1,10 +1,14 @@
 def solution(babbling):
     answer = 0
-    a_list = [ "aya", "ye", "woo", "ma"]
+    a_list = ["aya", "ye", "woo", "ma" ]
     for b in babbling:
+        print(b)
         for a in a_list:
             b = b.replace(a, " ")
-            
+#         print(b)
+#         print("stripped", b.strip())
+        
         if b.strip() == "":
-            answer += 1
+            answer += 1 
+            
     return answer
