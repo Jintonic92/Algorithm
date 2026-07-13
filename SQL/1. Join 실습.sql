@@ -108,3 +108,36 @@ FROM nw_products p
     JOIN nw_suppliers s on p.supplier_id = s.supplier_id
 WHERE c.category_name = 'Beverages'
 ;
+
+-- 고객명 Antonio Moreno이 1997년에 주문한 주문 상품정보를 고객 주소, 주문 아이디, 주문일자, 배송일자, 배송 주소 및
+-- 주문 상품아이디, 주문 상품명, 주문 상품별 금액, 주문 상품이 속한 카테고리명, supplier명을 구할 것. 
+
+SELECT c.address
+	, o.order_id
+    , o.order_date
+    , o.shipped_date
+    , o.ship_address
+    , p.product_id
+    , p.product_name
+    , oi.amount
+    , cat.category_name
+    , s.contact_name as supplier_name
+FROM nw_customers c
+	JOIN nw_orders o ON c.customer_id = o.customer_id
+    JOIN nw_order_items oi ON oi.order_id = o.order_id
+    JOIN nw_products p ON p.product_id = oi.product_id
+    JOIN nw_categories cat ON cat.category_id = p.category_id 
+    JOIN nw_suppliers s ON s.supplier_id = p.supplier_id
+WHERE c.contact_name = 'Antonio Moreno' 
+	AND YEAR(o.order_date) = 1997
+
+;
+
+SELECT * FROM nw_customers;
+SELECT * FROM nw_orders;
+SELECT * FROM nw_employees;
+SELECT * FROM nw_order_items;
+SELECT * FROM nw_categories;
+SELECT * FROM nw_products;
+SELECT * FROM nw_shippers;
+SELECT * FROM nw_suppliers;
