@@ -1,4 +1,4 @@
-************************************
+/************************************
    조인 실습 - 1
 *************************************/
 
@@ -58,4 +58,53 @@ FROM hr_emp_salary_hist h
     JOIN hr_emp e on h.empno = e.empno 
 	JOIN hr_dept d on d.deptno = e.deptno
 WHERE e.ename = 'SMITH'
+;
+
+SELECT * FROM hr_emp;
+SELECT * FROM hr_dept;
+SELECT * FROM hr_emp_salary_hist;
+SELECT * FROM hr_emp_dept_hist;
+
+/************************************
+   조인 실습 - 2
+*************************************/
+USE hr_database;
+SHOW tables;
+
+-- 고객명 Antonio Moreno이 1997년에 주문한 주문 정보를 주문 아이디, 주문일자, 배송일자, 배송 주소를 고객 주소와 함께 구할것.  
+
+SELECT c.contact_name
+	, c.address 
+    , o.order_id
+	, o.order_date
+    , o.shipped_date
+	, o.ship_address
+FROM nw_customers c
+	JOIN nw_orders o on c.customer_id = o.customer_id
+WHERE c.contact_name = 'Antonio Moreno'
+	AND YEAR(o.order_date) = 1997
+-- ORACLE :: and o.order_date between to_date('19970101', 'yyyymmdd') and to_date('19971231', 'yyyymmdd')
+;
+-- Berlin에 살고 있는 고객의 고객명, 주문id, 주문일자, 주문접수 직원명, 배송업체명을 구할것. 
+SELECT c.contact_name
+	, o.order_id
+    , o.order_date
+    , CONCAT(first_name, ' ', last_name) as employee_name
+    , s.company_name as shipper_name
+FROM nw_customers c
+	JOIN nw_orders o ON o.customer_id = c.customer_id
+    JOIN nw_shippers s ON o.ship_via = s.shipper_id
+    JOIN nw_employees e ON o.employee_id = e.employee_id
+WHERE c.city rlike 'Berlin'
+ORDER BY 2
+;
+
+-- Beverages 카테고리에 속하는 모든 상품아이디와 상품명, 그리고 이들 상품을 제공하는 supplier 회사명 정보 구할것 
+SELECT p.product_id
+	, p.product_name
+    , s.company_name as supplier_name
+FROM nw_products p
+	JOIN nw_categories c on p.category_id = c.category_id
+    JOIN nw_suppliers s on p.supplier_id = s.supplier_id
+WHERE c.category_name = 'Beverages'
 ;
