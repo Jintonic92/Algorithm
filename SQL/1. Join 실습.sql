@@ -29,6 +29,7 @@ ORDER BY a.dname, b.empno, c.fromdate
 ;
 
 -- 부서명 SALES와 RESEARCH의 소속 직원들의 부서명, 직원번호, 직원명, JOB 그리고 과거 급여 정보중 1983년 이전 데이터는 무시하고 데이터 추출 
+
 SELECT d.dname, e.empno, e.ename, e.job, h.fromdate, h.todate, h.sal
 FROM hr_emp e
 	JOIN hr_dept d ON e.deptno = d.deptno
@@ -85,7 +86,9 @@ WHERE c.contact_name = 'Antonio Moreno'
 	AND YEAR(o.order_date) = 1997
 -- ORACLE :: and o.order_date between to_date('19970101', 'yyyymmdd') and to_date('19971231', 'yyyymmdd')
 ;
+
 -- Berlin에 살고 있는 고객의 고객명, 주문id, 주문일자, 주문접수 직원명, 배송업체명을 구할것. 
+
 SELECT c.contact_name
 	, o.order_id
     , o.order_date
@@ -100,6 +103,7 @@ ORDER BY 2
 ;
 
 -- Beverages 카테고리에 속하는 모든 상품아이디와 상품명, 그리고 이들 상품을 제공하는 supplier 회사명 정보 구할것 
+
 SELECT p.product_id
 	, p.product_name
     , s.company_name as supplier_name
@@ -130,7 +134,6 @@ FROM nw_customers c
     JOIN nw_suppliers s ON s.supplier_id = p.supplier_id
 WHERE c.contact_name = 'Antonio Moreno' 
 	AND YEAR(o.order_date) = 1997
-
 ;
 
 /************************************
@@ -138,7 +141,8 @@ WHERE c.contact_name = 'Antonio Moreno'
 *************************************/	
 USE hr_database;
 
--- 주문이 단 한번도 없는 고객 정보 구하기. 
+-- 주문이 단 한번도 없는 고객 정보 구하기.
+ 
 SELECT DISTINCT c.customer_id	
 	, c.company_name
     , c.contact_name
@@ -170,7 +174,6 @@ SELECT d.*
 FROM hr_dept d
 	LEFT JOIN hr_emp e ON d.deptno = e.deptno
 ;
-
 
 SELECT * FROM hr_dept;
 SELECT * FROM hr_emp;
@@ -205,6 +208,7 @@ from nw_customers a
 where a.city = 'Madrid';
 
 -- orders_items에 주문번호(order_id)가 없는 order_id를 가진 orders 데이터 찾기 
+
 SELECT *
 FROM nw_orders o
 	LEFT JOIN nw_order_items oi ON o.order_id = oi.order_id
@@ -212,6 +216,7 @@ WHERE oi.order_id IS NULL
 ;
 
 -- orders 테이블에 없는 order_id가 있는 order_items 데이터 찾기. 
+
 SELECT *
 FROM nw_order_items oi 
 	LEFT JOIN nw_orders o ON oi.order_id = o.order_id
@@ -274,6 +279,7 @@ RIGHT JOIN hr_emp_test t ON d.deptno = t.deptno;
 ;
 
 -- FULL OUTER JOIN에는 있지만 LEFT JOIN 에는 없는 친구 구하기 
+
 WITH full_table AS (
 	SELECT d.deptno, d.dname, t.empno, t.ename
     FROM hr_dept d
@@ -299,6 +305,38 @@ WHERE t.deptno IS NULL
    조인 실습 - Non Equi 조인과 Cross 조인. 
 *************************************/
 
+-- 직원정보와 급여등급 정보를 추출. 
+
+SELECT e.*
+	, sg.grade as salgrade
+FROM hr_emp e
+	JOIN hr_salgrade sg ON e.sal BETWEEN sg.losal AND sg.hisal
+;
+
+-- 직원 급여의 이력정보를 나타내며, 해당 급여를 가졌던 시점에서의 부서번호도 함께 가져올것.
+
+SELECT *
+FROM hr_emp_salary_hist sal 
+	JOIN hr_emp_dept_hist dep ON sal.empno = dep.empno 
+		AND sal.fromdate BETWEEN dep.fromdate AND dep.todate
+ORDER BY 1, 2 
+;
+
+-- cross 조인
+
+WITH temp AS(
+	SELECT 1 AS rnum 
+    UNION ALL 
+    SELECT 2 AS rnum 
+)
+SELECT d.*
+	, t.*
+FROM hr_dept d 
+	CROSS JOIN temp t;
+
+
+SELECT * FROM hr_emp_dept_hist;
+SELECT * FROM hr_emp_salary_hist;
 SELECT * FROM nw_customers;
 SELECT * FROM nw_orders;
 SELECT * FROM nw_employees;
