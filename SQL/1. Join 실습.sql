@@ -133,6 +133,172 @@ WHERE c.contact_name = 'Antonio Moreno'
 
 ;
 
+/************************************
+   조인 실습 - Outer 조인. 
+*************************************/	
+USE hr_database;
+
+-- 주문이 단 한번도 없는 고객 정보 구하기. 
+SELECT DISTINCT c.customer_id	
+	, c.company_name
+    , c.contact_name
+    , c.contact_title
+    , c.address
+    , c.city
+    , c.country
+    , c.phone
+    , c.fax
+FROM nw_customers c
+	LEFT JOIN nw_orders o ON c.customer_id = o.customer_id
+WHERE o.order_id IS NULL
+;
+ 
+select *
+from nw_customers a
+	left join nw_orders b on a.customer_id = b.customer_id
+where b.customer_id is null;
+
+-- 부서정보와 부서에 소속된 직원명 정보 구하기. 부서가 직원을 가지고 있지 않더라도 부서정보는 표시되어야 함. 
+-- hr_table 활용 
+USE hr_database;
+SHOW tables;
+
+SELECT d.*
+	, e.empno
+	, e.ename
+    , e.job
+FROM hr_dept d
+	LEFT JOIN hr_emp e ON d.deptno = e.deptno
+;
+
+
+SELECT * FROM hr_dept;
+SELECT * FROM hr_emp;
+
+-- Madrid에 살고 있는 고객이 주문한 주문 정보를 구할것.
+-- 고객명, 주문id, 주문일자, 주문접수 직원명, 배송업체명을 구하되, 
+-- 만일 고객이 주문을 한번도 하지 않은 경우라도 고객정보는 빠지면 안됨.
+-- 이경우 주문 정보가 없으면 주문id를 0으로 나머지는 Null로 구할것. 
+
+SELECT c.customer_id
+	, c.contact_name
+	, IFNULL(o.order_id, 0) AS order_id 
+    , COALESCE(o.order_id, 0) AS order_id_
+    , o.order_date
+    , CONCAT(e.first_name, ' ', e.last_name) AS employee_name
+    , s.company_name AS shipper_name
+FROM nw_customers c
+	LEFT JOIN nw_orders o ON c.customer_id = o.customer_id
+    LEFT JOIN nw_employees e ON e.employee_id = o.employee_id
+    LEFT JOIN nw_shippers s ON o.ship_via = s.shipper_id
+WHERE c.city = 'Madrid'
+;
+
+
+-- 만일 아래와 같이 중간에 연결되는 집합을 명확히 left outer join 표시하지 않으면 원하는 집합을 가져 올 수 없음. 
+select a.customer_id, a.contact_name, coalesce(b.order_id, 0) as order_id, b.order_date
+	, c.first_name||' '||c.last_name as employee_name, d.company_name as shipper_name  
+from nw_customers a
+	left join nw_orders b on a.customer_id = b.customer_id
+	join nw_employees c on b.employee_id = c.employee_id
+	join nw_shippers d on b.ship_via = d.shipper_id
+where a.city = 'Madrid';
+
+-- orders_items에 주문번호(order_id)가 없는 order_id를 가진 orders 데이터 찾기 
+SELECT *
+FROM nw_orders o
+	LEFT JOIN nw_order_items oi ON o.order_id = oi.order_id
+WHERE oi.order_id IS NULL
+;
+
+-- orders 테이블에 없는 order_id가 있는 order_items 데이터 찾기. 
+SELECT *
+FROM nw_order_items oi 
+	LEFT JOIN nw_orders o ON oi.order_id = o.order_id
+WHERE o.order_id IS NULL
+;
+
+
+
+/************************************
+   조인 실습 - Full Outer 조인. 
+*************************************/	
+
+-- dept는 소속 직원이 없는 경우 존재. 하지만 직원은 소속 부서가 없는 경우가 없음. 
+
+SELECT d.*
+	, e.empno
+    , e.ename
+FROM hr_dept d
+	LEFT JOIN hr_emp e ON d.deptno = e.deptno
+;
+
+-- full outer join 테스트를 위해 소속 부서가 없는 테스트용 데이터 생성. 
+DROP TABLE IF EXISTS hr_emp_test;
+CREATE TABLE hr_emp_test AS SELECT * FROM hr_emp;
+SELECT * FROM hr_emp_test;
+-- 현재 세션에서만 안전 모드 일시 해제
+SET SQL_SAFE_UPDATES = 0;
+-- 소속 부서를 Null로 update
+UPDATE hr_emp_test SET deptno = NULL WHERE empno = 7934;
+SELECT * FROM hr_emp_test ORDER BY 1 DESC;
+
+-- dept를 기준으로 left outer 조인시에는 소속직원이 없는 부서는 추출 되지만. 소속 부서가 없는 직원은 추출할 수 없음.  
+SELECT d.*
+	, t.empno
+    , t.ename
+FROM hr_dept d
+	LEFT JOIN hr_emp_test t ON d.deptno = t.deptno
+;
+
+-- full outer join 하여 양쪽 모두의 집합이 누락되지 않도록 함. 
+-- OUTER JOIN은 ORACLE에서만 가능 
+-- SELECT d.*
+-- 	, t.empno
+-- 	, t.ename
+-- FROM hr_dept d
+-- 	  FULL OUTER JOIN hr_emp_test t ON d.deptno = t.deptno
+
+-- MySQL 에서는 LEFT & RIGHT UNION 해야함
+-- LEFT JOIN 결과 (부서 기준, 소속 직원이 없는 부서도 포함)
+SELECT d.deptno, d.dname, t.empno, t.ename
+FROM hr_dept d
+LEFT JOIN hr_emp_test t ON d.deptno = t.deptno
+
+UNION
+
+-- RIGHT JOIN 결과 (직원 기준, 부서가 없는 직원도 포함)
+SELECT d.deptno, d.dname, t.empno, t.ename
+FROM hr_dept d
+RIGHT JOIN hr_emp_test t ON d.deptno = t.deptno;
+;
+
+-- FULL OUTER JOIN에는 있지만 LEFT JOIN 에는 없는 친구 구하기 
+WITH full_table AS (
+	SELECT d.deptno, d.dname, t.empno, t.ename
+    FROM hr_dept d
+		LEFT JOIN hr_emp_test t ON d.deptno = t.deptno
+	UNION
+    SELECT d.deptno, d.dname, t.empno, t.ename
+    FROM hr_dept d
+		RIGHT JOIN hr_emp_test t ON d.deptno = t.deptno
+)
+, left_table AS (
+	SELECT d.deptno, d.dname, t.empno, t.ename
+	FROM hr_dept d
+		LEFT JOIN hr_emp_test t ON d.deptno = t.deptno
+)
+SELECT f.* 
+FROM full_table f
+	LEFT JOIN left_table t ON f.deptno = t.deptno 
+WHERE t.deptno IS NULL
+;
+
+
+/************************************
+   조인 실습 - Non Equi 조인과 Cross 조인. 
+*************************************/
+
 SELECT * FROM nw_customers;
 SELECT * FROM nw_orders;
 SELECT * FROM nw_employees;
