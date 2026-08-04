@@ -1,31 +1,34 @@
 def solution(a, b, c, d):
-    
-    # 4자리수가 같다 len(set()) == 1
-    # 3자리수가 같다 max(visted) == 3
-    # 2자리수가 2개이다 set() == 2 
-    # 2자리수가 1개이고 나머지 2개 max(visited) == 2이고 len(set()) == 3
-    # 모두가 다르다 else
-    
+    answer = 0
     a_list = [a, b, c, d]
-    answer = min(a_list)
     visited = [0] * 7
-    for i in a_list:
-        visited[i] += 1
+    for x in a_list:
+        visited[x] += 1
+        
+    # 4개 다 같다면 
+    if max(visited) == 4:
+        return 1111 * a
     
-    if len(set(a_list)) == 1:
-        p = a
-        return 1111 * p 
-    if max(visited) == 3:
-        p = [x for x, value in enumerate(visited) if value == 3][0]
-        q = [x for x, value in enumerate(visited) if value == 1][0]
-        return (10 * p + q)**2
-    if len(set(a_list)) == 2:
-        p = [x for x, value in enumerate(visited) if value == 2][0]
-        q = [x for x, value in enumerate(visited) if value == 2][1]
-        return (p + q) * abs(p - q)
-    if max(visited) == 2 and len(set(a_list)) == 3:
-        q = [x for x, value in enumerate(visited) if value == 1][0]
-        r = [x for x, value in enumerate(visited) if value == 1][1]
+    # 4개 다 다르다면 visited max 가 1
+    if max(visited) == 1:
+        return min(a_list)
+    
+    # 2개만 같고 나머지가 다르다면
+    if len(set(a_list)) == 3:
+        q = [idx for idx, x in enumerate(visited) if x == 1][0]
+        r = [idx for idx, x in enumerate(visited) if x == 1][1]
         return q * r
+    
+    # 3개가 같고 나머지가 다르다면
+    if max(visited) == 3:
+        p = [idx for idx, x in enumerate(visited) if x == 3][0]
+        q = [idx for idx, x in enumerate(visited) if x == 1][0]
+        return (10 * p + q)**2
+    
+    # 2개 쌍일 경우
+    if len(set(a_list)) == 2:
+        p = [idx for idx, x in enumerate(visited) if x == 2][0]
+        q = [idx for idx, x in enumerate(visited) if x == 2][1]
+        return (p + q) * abs(p - q)
     
     return answer
