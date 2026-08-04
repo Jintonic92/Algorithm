@@ -1,15 +1,14 @@
 def solution(lines):
     answer = 0
-    # visited으로 겹치는 선 관리 : > 2이면 내뱉기 
-    visited = [0] * 201
+    # 음수는 - 100 으로 처리
+    a_list = [0] * 201
+    # 겹치면 +1 하기
+    for dots in lines:
+        for i in range(dots[0], dots[1]):
+            a_list[i] += 1
     
-    for s, e in lines:
-        s += 100
-        e += 100 
-        for i in range(s, e):
-            visited[i] += 1
-    
-    for x in range(201):
-        if visited[x] >= 2:
-            answer += 1
+    for idx, x in enumerate(a_list):
+        if x >= 2:
+            # print(idx)
+            answer +=1 
     return answer
