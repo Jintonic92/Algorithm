@@ -88,4 +88,89 @@ GROUP BY empno
 ORDER BY 1, 2
 ;
 
+/************************************
+   Group by 실습 - 02(집계함수와 count(distinct))
+*************************************/
+-- 추가적인 테스트 테이블 생성. 
+DROP TABLE IF EXISTS hr_emp_test;
+CREATE TABLE hr_emp_test AS SELECT * FROM hr_emp ;
+INSERT INTO hr_emp_test 
+SELECT 8000, 'CHMIN', 'ANALYST', 7839, STR_TO_DATE('19810101', '%Y%m%d'), 3000, 1000, 20;
+SELECT * FROM hr_emp_test;
+
+-- Aggregation은 Null값을 처리하지 않음.
+SELECT deptno
+	, COUNT(*) AS cnt
+    , SUM(comm)
+    , MAX(comm)
+    , MIN(comm)
+    , AVG(comm)
+FROM hr_emp_test
+GROUP BY 1
+;
+
+SELECT mgr
+	, COUNT(*)
+    , SUM(comm)
+FROM hr_emp
+GROUP BY mgr
+;
+
+-- max, min 함수는 숫자열 뿐만 아니라, 문자열,날짜/시간 타입에도 적용가능. 
+
+SELECT deptno
+	, MAX(job)
+    , MIN(ename)
+    , MAX(hiredate)
+    , MIN(hiredate)
+    , SUM(ename)
+    , AVG(ename)
+FROM hr_emp
+GROUP BY deptno
+;
+
+-- count(distinct 컬럼명)은 지정된 컬럼명으로 중복을 제거한 고유한 건수를 추출
+SELECT COUNT(DISTINCT JOB) FROM hr_emp_test;
+
+/************************************
+   Group by 실습 - 03(Group by절에 가공 컬럼 및 case when 적용)
+*************************************/
+-- emp 테이블에서 입사년도별 평균 급여 구하기.  
+SELECT YEAR(hiredate) year_
+	, ROUND(AVG(sal)) as avg_sal
+FROM hr_emp
+GROUP BY YEAR(hiredate)
+ORDER BY 1
+;
+
+-- ORACLE 
+-- select to_char(hiredate, 'yyyy') as hire_year, avg(sal) as avg_sal --, count(*) as cnt
+-- from hr.emp
+-- group by to_char(hiredate, 'yyyy')
+-- order by 1;
+
+-- 1000미만, 1000-1999, 2000-2999와 같이 1000단위 범위내에 sal이 있는 레벨로 group by 하고 해당 건수를 구함. 
+SELECT FLOOR(sal/1000)*1000 AS bin_range
+	, COUNT(*) AS cnt
+FROM hr_emp
+GROUP BY FLOOR(sal/1000)*1000
+;
+
+SELECT *,
+	FLOOR(sal/1000)*1000 as bin_range
+FROM hr_emp; 
+
+SELECT * FROM hr_emp;
+-- job이 SALESMAN인 경우와 그렇지 않은 경우만 나누어서 평균/최소/최대 급여를 구하기. 
+
+
+SELECT CASE WHEN job = 'SALESMAN' THEN 'SALESMAN'
+			ELSE 'OTHERS' END AS job_cat
+	, ROUND(AVG(sal)) AS avg_sal
+    , ROUND(MIN(sal)) AS min_sal
+    , ROUND(MAX(sal)) AS max_sal
+	, COUNT(*) AS cnt
+FROM hr_emp 
+GROUP BY 1
+;
 
