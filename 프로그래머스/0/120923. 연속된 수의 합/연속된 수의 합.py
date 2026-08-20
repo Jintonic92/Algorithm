@@ -1,20 +1,24 @@
 def solution(num, total):
     answer = []
-    start_x = total + num  ## num = 3, total = 0 과 같은 문제는 못풀 수 있음 
+    goal = total 
     
-    while True :
+    start_x = total + num 
+    
+    while True:
         
         x = start_x
-        answer = []
-        
         for i in range(num):
+            
+            x -= 1 
             answer.append(x)
-            x -= 1
+            # print(x, i)
+            
         
-        if sum(answer) == total:
+        if sum(answer) == goal:
             answer.sort()
             return answer
-        
-        else:
-            start_x -= 1
-        
+
+        start_x -= 1
+        answer = []
+    
+    return answer
