@@ -1,24 +1,25 @@
 def solution(polynomial):
     answer = ''
     num, con = 0, 0
-    for p in polynomial.split(' + '):
-        if p.endswith("x"):
-            if p == "x":
+    for x in polynomial.split(" + "):
+        if x.endswith("x"):
+            if len(x) == 1:
                 num += 1
-            else : num += int(p[:-1])
+            else:
+                num += int(x[:-1])
         else:
-            con += int(p)
+            con += int(x)
             
-    if num != 0:
+    if con == 0:
         if num == 1:
-            answer = "x"
+            answer = 'x'
         else:
-            answer = str(num) + "x"
-        if con != 0:
-            answer += ' + '
-        
-    if con != 0 :
-        answer += str(con)
-            
+            answer = str(num)+'x'
+    elif num == 0:
+        answer = str(con)
+    else:
+        if num == 1:
+            answer = 'x + ' + str(con)
+        else:
+            answer = str(num)+'x' +' + '+ str(con)
     return answer
-  
