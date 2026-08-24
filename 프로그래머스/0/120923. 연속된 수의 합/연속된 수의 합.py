@@ -1,24 +1,23 @@
 def solution(num, total):
     answer = []
-    goal = total 
     
-    start_x = total + num 
+    # num의 개수 만큼 하나씩 추가 하기
+    max_num = total + num
     
     while True:
+        x = max_num 
         
-        x = start_x
         for i in range(num):
-            
-            x -= 1 
-            answer.append(x)
-            # print(x, i)
-            
+            y = x - i
+            answer.append(y)
         
-        if sum(answer) == goal:
+        print(answer)
+        if sum(answer) == total:
             answer.sort()
             return answer
-
-        start_x -= 1
+        
+        max_num -= 1
         answer = []
-    
+        
+        
     return answer
