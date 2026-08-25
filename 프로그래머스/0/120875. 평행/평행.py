@@ -1,18 +1,11 @@
 def solution(dots):
     answer = 0
-    
-    # 자고로 평행이란 기울기가 같다는 것 
-    # 4개의 좌표에서 나올 수 있는 선의 개수는 3개 
-    
-    ax, ay = dots[0][0], dots[0][1]
-    bx, by = dots[1][0], dots[1][1]
-    cx, cy = dots[2][0], dots[2][1]
-    dx, dy = dots[3][0], dots[3][1]
-
-    if (ax - bx) / (cx - dx) == (ay - by) / (cy - dy):
+    #  평행이란 diff(a1, a2) / diff(b1, b2) 가 같은 것
+    a, b, c, d = dots
+    if (a[0] - b[0]) / (a[1] - b[1]) == (c[0] - d[0]) / (c[1] - d[1]):
         answer = 1
-    elif (ax - cx) / (bx - dx) == (ay - cy) / (by - dy):
+    if (a[0] - c[0]) / (a[1] - c[1]) == (b[0] - d[0]) / (b[1] - d[1]):
         answer = 1
-    elif (ax - dx) / (bx - cx) == (ay - dy) / (by - cy):
-        anwer = 1
+    if (a[0] - d[0]) / (b[1] - d[1]) == (b[0] - c[0]) / (b[1] - c[1]):
+        answer = 1
     return answer
