@@ -1,30 +1,30 @@
 def solution(n):
     answer = [[0] * n for _ in range(n)]
     
-    # 0, 0 부터 시작해서 
-    # 오른쪽 > 아래 > 왼쪽 > 위 순으로 돌기
-    # 방향 트는 기준 : nx, ny 가 n을 넘는다면 
-    # 방향 트는 방법 : indexing % 4 
-    # 돌면서 +1 씩 남기고
-    
-    x, y = 0, 0
     dx = [0, 1, 0, -1]
     dy = [1, 0, -1, 0]
     idx = 0 
+    cnt = 1 
+    x, y = 0 , 0
     
-    for i in range(1, n**2 + 1):
-        answer[x][y] = i
+    while True:
         
-        nx = x + dx[idx]
-        ny = y + dy[idx]
+        answer[x][y] = cnt 
+        #print(x, y, cnt)
+        nx, ny = x + dx[idx], y + dy[idx]
         
-        if nx >= n or ny >= n or answer[nx][ny] != 0 :
-            idx = (idx + 1) % 4
-            nx = x + dx[idx]
-            ny = y + dy[idx]
+        if 0 <= nx < n and 0 <= ny < n and not answer[nx][ny]:
+            cnt += 1
+            answer[nx][ny] = cnt
+            x, y = nx, ny
+        
+        else:
+            idx = ( idx + 1) % 4
+        
+        if cnt == n**2:
+            return answer
             
-        x, y = nx, ny
-    
-    
-    return answer
+        
+        
+
 
