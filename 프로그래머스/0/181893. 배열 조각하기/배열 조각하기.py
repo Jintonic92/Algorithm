@@ -5,5 +5,5 @@ def solution(arr, query):
             arr = arr[:q+1]
         else:
             arr = arr[q:]
-    answer = arr
+    answer = arr 
     return answer
