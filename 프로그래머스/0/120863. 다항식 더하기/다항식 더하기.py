@@ -1,28 +1,30 @@
 def solution(polynomial):
     answer = ''
-    num, cons = 0, 0
+    num, con = 0, 0
     
-    for p in polynomial.split(" + "):
-        if p.endswith('x'):
-            if len(p) == 1:
+    for each in polynomial.split(" + "):
+        if each.endswith("x"):
+            if len(each) == 1:
                 num += 1
-            else: num += int(p[:-1])
-        
+            else:
+                num += int(each[:-1])
         else:
-            cons += int(p)
-            
+            con += int(each)
+    
     if num == 0:
-        return f"{cons}"
+        return f"{con}"
     
-    if cons == 0:
+    if num == 1 and con != 0:
+        return f"x + {con}"
+    
+    elif con == 0:
         if num == 1:
-            return f"x"
-        return f"{num}x"
-    
+            return "x"
+        else:
+            return f"{num}x"
     else:
-        if num == 1:
-            return f"x + {cons}"
-        return f"{num}x + {cons}"
-
+        return f"{num}x + {con}"
             
-    return answer
+
+
+    
