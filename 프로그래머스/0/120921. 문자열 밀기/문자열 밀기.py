@@ -1,20 +1,11 @@
-
 def solution(A, B):
-
     answer = 0
-    C = A
-    D = C
-    while True:
-        
-        if D == B:
+    for x in range(len(A)):
+        # print(A, B)
+        if A == B:
             return answer
         
-        D = C[-1] + C[:-1] 
-        C = D
-        # print(D, C)
-        
+        A = A[-1] + A[:-1]
         answer += 1
-        
-        if answer == len(A)+1:
-            return -1
-        
+    
+    return -1
