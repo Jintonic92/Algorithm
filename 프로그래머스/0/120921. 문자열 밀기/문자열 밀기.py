@@ -1,14 +1,9 @@
 def solution(A, B):
-    answer = -1
-    if A == B:
-        return 0 
-    for i in range(len(B)):
-        
-        A = A[-1] + A[:len(B)-1] 
-        
+    answer = 0
+    for i in range(len(A)):
         if A == B:
-            return i+1
-            
-    
-        
+            return answer
+        A = A[-1] + A[:-1]
+        answer += 1
+    answer = -1
     return answer
