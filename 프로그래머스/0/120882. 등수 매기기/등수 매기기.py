@@ -1,16 +1,11 @@
 def solution(score):
     answer = []
-    a_list = []
-    for idx, value in enumerate(score):
-        a, b = value
-        a_list.append((a+b)/2)
-        
-    # print(a_list)
-    for v in a_list:
-        rank = 1
-        for z in a_list:
-            if z > v :
+    a_list = [x + y  for x, y in score]
+    for x in a_list:
+        rank = 1 
+        for y in a_list:
+            if x < y :
                 rank += 1
         answer.append(rank)
-                
+    print(answer)
     return answer
